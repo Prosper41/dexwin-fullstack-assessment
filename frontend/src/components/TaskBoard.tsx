@@ -9,14 +9,23 @@ export default function TaskBoard({ projectId }) {
     getTasks(projectId).then((data) => {
       setTasks(data);
     });
-  }, []);
+  }, [projectId]);
 
-  const handleToggle = (task) => {
-    const next = task.status === 'DONE' ? 'TODO' : 'DONE';
-    task.status = next;
-    setTasks(tasks);
-    updateTaskStatus(task.id, next);
-  };
+  // const handleToggle = (task) => {
+  //   const next = task.status === 'DONE' ? 'TODO' : 'DONE';
+  //   task.status = next;
+  //   setTasks(tasks);
+  //   updateTaskStatus(task.id, next);
+  // };
+
+    const handleToggle = (task) => {
+      const next = task.status === 'Done' ? 'TODO' : 'DONE';
+
+      setTasks(tasks.map(t =>
+        t.id === task.id ? {...t, status: next} : t
+      ));
+      updateTaskStatus(task.id, next)
+    }
 
   return (
     <div>

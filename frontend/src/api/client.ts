@@ -1,10 +1,16 @@
 const BASE_URL = '/api';
 
-async function request(path, options?) {
-  const res = await fetch(`${BASE_URL}${path}`, options);
-  return res.json();
-}
-
+// async function request(path, options?) {
+//   const res = await fetch(`${BASE_URL}${path}`, options);
+//   return res.json();
+// }
+  async function request(path, options?){
+    const res = await fetch(`${BASE_URL}${path}`, options);
+    if(!res.ok) {
+      throw new Error(`Request failed: ${res.status}`);
+    }
+    return res.json()
+  }
 export function getProjects() {
   return request('/projects');
 }
